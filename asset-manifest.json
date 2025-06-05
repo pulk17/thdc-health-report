@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/thdc-health-report-generator/static/css/main.e6c13ad2.css",
+    "main.js": "/thdc-health-report-generator/static/js/main.43d58be5.js",
+    "static/js/239.645cdcfe.chunk.js": "/thdc-health-report-generator/static/js/239.645cdcfe.chunk.js",
+    "static/js/977.a90ac747.chunk.js": "/thdc-health-report-generator/static/js/977.a90ac747.chunk.js",
+    "static/js/455.16e40c7c.chunk.js": "/thdc-health-report-generator/static/js/455.16e40c7c.chunk.js",
+    "static/js/453.6acc4a01.chunk.js": "/thdc-health-report-generator/static/js/453.6acc4a01.chunk.js",
+    "static/media/hosiptal.png": "/thdc-health-report-generator/static/media/hosiptal.db9e6c2304845de26e23.png",
+    "static/media/thdclogo.png": "/thdc-health-report-generator/static/media/thdclogo.fabce9003eb1e3e69644.png",
+    "index.html": "/thdc-health-report-generator/index.html",
+    "main.e6c13ad2.css.map": "/thdc-health-report-generator/static/css/main.e6c13ad2.css.map",
+    "main.43d58be5.js.map": "/thdc-health-report-generator/static/js/main.43d58be5.js.map",
+    "239.645cdcfe.chunk.js.map": "/thdc-health-report-generator/static/js/239.645cdcfe.chunk.js.map",
+    "977.a90ac747.chunk.js.map": "/thdc-health-report-generator/static/js/977.a90ac747.chunk.js.map",
+    "455.16e40c7c.chunk.js.map": "/thdc-health-report-generator/static/js/455.16e40c7c.chunk.js.map",
+    "453.6acc4a01.chunk.js.map": "/thdc-health-report-generator/static/js/453.6acc4a01.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.43d58be5.js"
+  ]
+}
