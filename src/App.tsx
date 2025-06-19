@@ -1,4 +1,5 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import MainDataEntryPage from './pages/MainDataEntryPage';
 import { AppBar, Toolbar, Typography, Box, CssBaseline, Container } from '@mui/material';
@@ -49,7 +50,10 @@ function App() {
       </AppBar>
       
       <Container component="main" sx={{ flexGrow: 1, py: 3 }} maxWidth={false}>
-        <MainDataEntryPage />
+        <Routes>
+          <Route path="/" element={<MainDataEntryPage />} />
+          {/* Add more routes here if needed */}
+        </Routes>
       </Container>
 
       <Box component="footer" sx={{ py: 2, px: 2, mt: 'auto', backgroundColor: '#f5f5f5' /* Light grey footer */ }}>

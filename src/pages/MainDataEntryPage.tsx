@@ -9,12 +9,13 @@ import {
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { ExtendedHealthTestItem } from '../types/healthReportTypes';
+import { PatientInfo } from '../types/patientInfoTypes';
 import {
   predefinedTests,
   createInitialTests,
   getRecommendedValue,
   getValidation,
-  validateInput
+  validateInput,
 } from '../utils/testData';
 import PrintView from '../components/PrintView';
 import PersonalInfoForm from '../components/PersonalInfoForm';
@@ -87,11 +88,23 @@ export interface DoctorDetails {
 
 const MainDataEntryPage: React.FC = () => {
   // Basic state
-  const [name, setName] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [bloodType, setBloodType] = useState('');
-  const [gender, setGender] = useState('male');
-  const [tests, setTests] = useState<ExtendedHealthTestItem[]>(createInitialTests('male'));
+  const [patientInfo, setPatientInfo] = useState<PatientInfo>({
+    name: '',
+    dateOfBirth: '',
+    sex: 'Male',
+    bloodType: '',
+    opdRegNo: '',
+    opdDate: '',
+    employeeNo: '',
+    relationshipWithEmployee: '',
+    workplace: '',
+    investigation: '',
+    presentingComplaint: '',
+    treatment: '',
+    consultant: '',
+    labNo: '',
+  });
+  const [tests, setTests] = useState<ExtendedHealthTestItem[]>([]);
   const [showPrintView, setShowPrintView] = useState(false);
   
   // Doctor details state
@@ -107,26 +120,32 @@ const MainDataEntryPage: React.FC = () => {
   // Update test recommendations when gender changes
   useEffect(() => {
     setTests(prevTests => 
-      prevTests.map(test => ({
-        ...test,
-        recommendedValue: getRecommendedValue(test.testName, gender)
-      }))
+      prevTests.map(test => {
+        if (test.isCategory) return test;
+        return {
+          ...test,
+          recommendedValue: getRecommendedValue(test.testName, patientInfo.sex || 'Male')
+        };
+      })
     );
-  }, [gender]);
+  }, [patientInfo.sex]);
 
-  // Test management handlers
+  const handlePatientInfoChange = (info: PatientInfo) => {
+    setPatientInfo(info);
+  };
+
   const handleAddTest = () => {
-    setTests([
-      ...tests,
-      { 
-        id: uuidv4(), 
-        testName: predefinedTests[0].testName, 
-        actualValue: '', 
-        recommendedValue: getRecommendedValue(predefinedTests[0].testName, gender),
-        validation: getValidation(predefinedTests[0].testName),
-        error: ''
-      }
-    ]);
+    const newTest: ExtendedHealthTestItem = {
+      id: uuidv4(),
+      testName: predefinedTests.find(t => !t.isCategory)?.testName || '',
+      actualValue: '',
+      recommendedValue: '',
+      unit: '',
+      isCategory: false,
+      validation: { type: 'text', errorMessage: '', pattern: /.*/ },
+      error: '',
+    };
+    setTests([...tests, newTest]);
   };
 
   const handleRemoveTest = (id: string) => {
@@ -141,13 +160,13 @@ const MainDataEntryPage: React.FC = () => {
     setTests(
       tests.map(test => {
         if (test.id !== id) return test;
-        
+
         // Validate input if changing actualValue
         let error = '';
-        if (field === 'actualValue') {
+        if (field === 'actualValue' && !test.isCategory) {
           error = validateInput(value, test.validation);
         }
-        
+
         return { ...test, [field]: value, error };
       })
     );
@@ -156,15 +175,19 @@ const MainDataEntryPage: React.FC = () => {
   const handleTestTypeChange = (id: string, index: number) => {
     const selectedTest = predefinedTests[index];
     setTests(
-      tests.map(test => 
+      tests.map(test =>
         test.id === id
           ? {
               ...test,
               testName: selectedTest.testName,
-              recommendedValue: getRecommendedValue(selectedTest.testName, gender),
+              recommendedValue: getRecommendedValue(
+                selectedTest.testName,
+                patientInfo.sex || 'Male'
+              ),
+              unit: selectedTest.unit || '',
               validation: selectedTest.validation,
               actualValue: '', // Reset actual value when test type changes
-              error: ''
+              error: '',
             }
           : test
       )
@@ -192,14 +215,8 @@ const MainDataEntryPage: React.FC = () => {
 
           {/* Personal Information Form */}
           <PersonalInfoForm
-            name={name}
-            setName={setName}
-            dateOfBirth={dateOfBirth}
-            setDateOfBirth={setDateOfBirth}
-            gender={gender}
-            setGender={setGender}
-            bloodType={bloodType}
-            setBloodType={setBloodType}
+            patientInfo={patientInfo}
+            onPatientInfoChange={handlePatientInfoChange}
           />
 
           <Box sx={{ borderBottom: 1, borderColor: 'divider', my: 4 }} />
@@ -209,8 +226,8 @@ const MainDataEntryPage: React.FC = () => {
             Doctor Information
           </Typography>
           
-          <Grid container spacing={3}>
-            <Grid size={{ xs: 12, sm: 4 }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', mx: -1.5 }}>
+            <Box sx={{ p: 1.5, width: { xs: '100%', sm: '33.33%' } }}>
               <TextField
                 fullWidth
                 id="doctorName"
@@ -220,9 +237,9 @@ const MainDataEntryPage: React.FC = () => {
                 variant="outlined"
                 placeholder="Enter doctor's name"
               />
-            </Grid>
+            </Box>
             
-            <Grid size={{ xs: 12, sm: 4 }}>
+            <Box sx={{ p: 1.5, width: { xs: '100%', sm: '33.33%' } }}>
               <TextField
                 fullWidth
                 id="doctorSpecialization"
@@ -232,9 +249,9 @@ const MainDataEntryPage: React.FC = () => {
                 variant="outlined"
                 placeholder="E.g., Cardiologist, General Physician"
               />
-            </Grid>
+            </Box>
             
-            <Grid size={{ xs: 12, sm: 4 }}>
+            <Box sx={{ p: 1.5, width: { xs: '100%', sm: '33.33%' } }}>
               <TextField
                 fullWidth
                 id="doctorContact"
@@ -244,8 +261,8 @@ const MainDataEntryPage: React.FC = () => {
                 variant="outlined"
                 placeholder="Phone number or email"
               />
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
 
           <Box sx={{ borderBottom: 1, borderColor: 'divider', my: 4 }} />
 
@@ -253,20 +270,17 @@ const MainDataEntryPage: React.FC = () => {
           <TestResultsSection
             tests={tests}
             predefinedTests={predefinedTests}
+            onTestChange={handleTestChange}
             onAddTest={handleAddTest}
             onRemoveTest={handleRemoveTest}
             onTestTypeChange={handleTestTypeChange}
-            onTestChange={handleTestChange}
           />
 
           <Box sx={{ borderBottom: 1, borderColor: 'divider', my: 4 }} />
           
           {/* Report Generation */}
           <ReportGeneration
-            name={name}
-            dateOfBirth={dateOfBirth}
-            gender={gender}
-            bloodType={bloodType}
+            patientInfo={patientInfo}
             tests={tests}
             showPrintView={showPrintView}
             setShowPrintView={setShowPrintView}
@@ -284,12 +298,12 @@ const MainDataEntryPage: React.FC = () => {
       {/* Hidden Print View for PDF */}
       {showPrintView && (
         <PrintView
-          name={name}
-          dateOfBirth={dateOfBirth}
-          gender={gender}
-          bloodType={bloodType}
+          ref={printRef}
+          name={patientInfo.name || ''}
+          dateOfBirth={patientInfo.dateOfBirth || ''}
+          gender={patientInfo.sex || ''}
+          bloodType={patientInfo.bloodType || ''}
           tests={tests}
-          printRef={printRef}
           doctorDetails={doctorDetails}
         />
       )}

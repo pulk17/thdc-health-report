@@ -11,7 +11,6 @@ interface PrintViewProps {
   gender: string;
   bloodType: string;
   tests: ExtendedHealthTestItem[];
-  printRef: React.RefObject<HTMLDivElement | null>;
   doctorDetails?: DoctorDetails;
 }
 
@@ -99,15 +98,14 @@ const styles = {
   }
 };
 
-const PrintView: React.FC<PrintViewProps> = ({
+const PrintView = React.forwardRef<HTMLDivElement, PrintViewProps>(({
   name,
   dateOfBirth,
   gender,
   bloodType,
   tests,
-  printRef,
   doctorDetails
-}) => {
+}, ref) => {
   // Calculate age from date of birth
   const age = dateOfBirth ? `${calculateAge(dateOfBirth)} years` : 'N/A';
   
@@ -115,7 +113,7 @@ const PrintView: React.FC<PrintViewProps> = ({
   const formattedGender = gender === 'male' ? 'Male' : 'Female';
   
   return (
-    <div ref={printRef} style={styles.container}>
+    <div ref={ref} style={styles.container}>
       {/* Semi-transparent overlay for background */}
       <div style={styles.backgroundOverlay}></div>
       
@@ -201,6 +199,6 @@ const PrintView: React.FC<PrintViewProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default PrintView; 

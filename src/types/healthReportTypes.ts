@@ -14,11 +14,16 @@ export type TestValidation = {
 export interface ExtendedHealthTestItem extends HealthTestItem {
   validation: TestValidation;
   error: string;
+  unit?: string;
+  isCategory?: boolean;
 }
 
 export interface PredefinedTest {
   testName: string;
-  recommendedValueMale: string;
-  recommendedValueFemale: string;
+  recommendedValue?: string; // General recommendation
+  recommendedValueMale?: string; // Optional male-specific
+  recommendedValueFemale?: string; // Optional female-specific
+  unit?: string; // Optional unit
+  isCategory?: boolean; // Optional category flag
   validation: TestValidation;
 } 

@@ -5,6 +5,7 @@ import thdcLogo from '../assets/thdclogo.png';
 import hospitalBg from '../assets/hosiptal.png';
 import { DoctorDetails } from '../pages/MainDataEntryPage';
 import ExcelJS from 'exceljs';
+import { PatientInfo } from '../types/patientInfoTypes';
 
 /**
  * Calculates age from date of birth
@@ -30,10 +31,7 @@ export const calculateAge = (dateOfBirth: string): number => {
  * Generates and downloads an Excel report with proper formatting using ExcelJS
  */
 export const generateExcelReport = async (
-  name: string,
-  dateOfBirth: string,
-  gender: string,
-  bloodType: string,
+  patientInfo: PatientInfo,
   tests: ExtendedHealthTestItem[],
   doctorDetails?: DoctorDetails
 ) => {
@@ -116,33 +114,91 @@ export const generateExcelReport = async (
   // Add empty row
   worksheet.addRow(['', '', '']);
   
-  // Add Personal Information section
-  const personalInfoHeaderRow = worksheet.addRow(['Personal Information', '', '']);
-  worksheet.mergeCells('A3:C3');
-  personalInfoHeaderRow.height = 22;
-  applyStyleToRow(personalInfoHeaderRow, sectionHeaderStyle);
+  let currentRow = 3;
   
-  // Add personal information rows
-  const nameRow = worksheet.addRow(['Full Name', name || 'N/A', '']);
-  applyStyleToCell(nameRow.getCell(1), headerLabelStyle);
-  applyStyleToCell(nameRow.getCell(2), valueStyle);
+  // Helper function to add a styled row
+  const addStyledRow = (label: string, value: string) => {
+    const row = worksheet.addRow([label, value, '']);
+    applyStyleToCell(row.getCell(1), headerLabelStyle);
+    applyStyleToCell(row.getCell(2), valueStyle);
+    row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+        if (colNumber <= 2) {
+            cell.border = {
+                top: { style: 'thin' },
+                bottom: { style: 'thin' },
+                left: colNumber === 1 ? { style: 'thin' } : undefined,
+                right: colNumber === 2 ? { style: 'thin' } : undefined
+            };
+        }
+    });
+    currentRow++;
+  };
   
-  const ageRow = worksheet.addRow(['Age', dateOfBirth ? `${calculateAge(dateOfBirth)} years` : 'N/A', '']);
-  applyStyleToCell(ageRow.getCell(1), headerLabelStyle);
-  applyStyleToCell(ageRow.getCell(2), valueStyle);
+  // Add OPD Details section
+  const opdHeaderRow = worksheet.addRow(['OPD Details', '', '']);
+  worksheet.mergeCells(`A${currentRow}:C${currentRow}`);
+  opdHeaderRow.height = 22;
+  applyStyleToRow(opdHeaderRow, sectionHeaderStyle);
+  currentRow++;
   
-  const genderRow = worksheet.addRow(['Gender', gender === 'male' ? 'Male' : 'Female', '']);
-  applyStyleToCell(genderRow.getCell(1), headerLabelStyle);
-  applyStyleToCell(genderRow.getCell(2), valueStyle);
-  
-  const bloodTypeRow = worksheet.addRow(['Blood Type', bloodType || 'N/A', '']);
-  applyStyleToCell(bloodTypeRow.getCell(1), headerLabelStyle);
-  applyStyleToCell(bloodTypeRow.getCell(2), valueStyle);
+  addStyledRow('O.P.D. Reg No.', patientInfo.opdRegNo || 'N/A');
+  addStyledRow('OPD Date', patientInfo.opdDate || 'N/A');
+  addStyledRow('Consultant', patientInfo.consultant || 'N/A');
+  addStyledRow('Lab No.', patientInfo.labNo || 'N/A');
   
   // Add empty row
   worksheet.addRow(['', '', '']);
+  currentRow++;
   
-  let currentRow = 9;
+  // Add Personal Information section
+  const personalInfoHeaderRow = worksheet.addRow([
+    'Personal Information',
+    '',
+    '',
+  ]);
+  worksheet.mergeCells(`A${currentRow}:C${currentRow}`);
+  personalInfoHeaderRow.height = 22;
+  applyStyleToRow(personalInfoHeaderRow, sectionHeaderStyle);
+  currentRow++;
+  
+  // Add personal information rows
+  addStyledRow('Full Name', patientInfo.name || 'N/A');
+  addStyledRow(
+    'Age',
+    patientInfo.dateOfBirth
+      ? `${calculateAge(patientInfo.dateOfBirth)} years`
+      : 'N/A'
+  );
+  addStyledRow('Gender', patientInfo.sex || 'N/A');
+  addStyledRow('Blood Type', patientInfo.bloodType || 'N/A');
+  addStyledRow('Employee No.', patientInfo.employeeNo || 'N/A');
+  addStyledRow(
+    'Relationship with Employee',
+    patientInfo.relationshipWithEmployee || 'N/A'
+  );
+  addStyledRow('Workplace', patientInfo.workplace || 'N/A');
+  
+  // Add empty row
+  worksheet.addRow(['', '', '']);
+  currentRow++;
+  
+  // Add Investigation/Complaint section
+  const investigationHeaderRow = worksheet.addRow([
+    'Investigation & Complaint',
+    '',
+    '',
+  ]);
+  worksheet.mergeCells(`A${currentRow}:C${currentRow}`);
+  investigationHeaderRow.height = 22;
+  applyStyleToRow(investigationHeaderRow, sectionHeaderStyle);
+  currentRow++;
+  addStyledRow('Investigation', patientInfo.investigation || 'N/A');
+  addStyledRow('Presenting Complaint', patientInfo.presentingComplaint || 'N/A');
+  addStyledRow('Treatment', patientInfo.treatment || 'N/A');
+  
+  // Add empty row
+  worksheet.addRow(['', '', '']);
+  currentRow++;
   
   // Add doctor information if available
   if (doctorDetails) {
@@ -152,20 +208,9 @@ export const generateExcelReport = async (
     applyStyleToRow(doctorInfoHeaderRow, sectionHeaderStyle);
     currentRow++;
     
-    const doctorNameRow = worksheet.addRow(['Doctor Name', doctorDetails.name || 'N/A', '']);
-    applyStyleToCell(doctorNameRow.getCell(1), headerLabelStyle);
-    applyStyleToCell(doctorNameRow.getCell(2), valueStyle);
-    currentRow++;
-    
-    const doctorSpecializationRow = worksheet.addRow(['Specialization', doctorDetails.specialization || 'N/A', '']);
-    applyStyleToCell(doctorSpecializationRow.getCell(1), headerLabelStyle);
-    applyStyleToCell(doctorSpecializationRow.getCell(2), valueStyle);
-    currentRow++;
-    
-    const doctorContactRow = worksheet.addRow(['Contact', doctorDetails.contact || 'N/A', '']);
-    applyStyleToCell(doctorContactRow.getCell(1), headerLabelStyle);
-    applyStyleToCell(doctorContactRow.getCell(2), valueStyle);
-    currentRow++;
+    addStyledRow('Doctor Name', doctorDetails.name || 'N/A');
+    addStyledRow('Specialization', doctorDetails.specialization || 'N/A');
+    addStyledRow('Contact', doctorDetails.contact || 'N/A');
     
     // Add empty row
     worksheet.addRow(['', '', '']);
@@ -180,54 +225,39 @@ export const generateExcelReport = async (
   currentRow++;
   
   // Add test results header
-  const testHeaderRow = worksheet.addRow(['Test Name', 'Actual Value', 'Recommended Value/Range']);
+  const testHeaderRow = worksheet.addRow([
+    'Test Name',
+    'Actual Value',
+    'Recommended Value/Range',
+  ]);
   applyStyleToCell(testHeaderRow.getCell(1), tableHeaderStyle);
   applyStyleToCell(testHeaderRow.getCell(2), tableHeaderStyle);
   applyStyleToCell(testHeaderRow.getCell(3), tableHeaderStyle);
   currentRow++;
   
   // Add test data
-  tests.forEach(test => {
-    const testDataRow = worksheet.addRow([test.testName, test.actualValue || 'N/A', test.recommendedValue]);
+  tests.forEach((test) => {
+    const testDataRow = worksheet.addRow([
+      test.testName,
+      test.actualValue || 'N/A',
+      test.recommendedValue,
+    ]);
     applyStyleToCell(testDataRow.getCell(1), tableValueStyle);
     applyStyleToCell(testDataRow.getCell(2), tableValueStyle);
     applyStyleToCell(testDataRow.getCell(3), tableRecommendedStyle);
     currentRow++;
   });
   
-  // Apply borders to all cells in the worksheet to ensure consistent formatting
-  for (let i = 1; i <= currentRow; i++) {
-    const row = worksheet.getRow(i);
-    
-    // Skip adding borders to title and empty rows
-    if (i !== 1 && i !== 2 && i !== 8 && !(doctorDetails && i === currentRow - tests.length - 2)) {
-      // Add borders to cells in info sections
-      if ((i >= 3 && i <= 7) || (doctorDetails && i >= 9 && i <= 12)) {
-        row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
-          if (colNumber <= 2) {
-            cell.border = {
-              top: { style: 'thin' },
-              bottom: { style: 'thin' },
-              left: colNumber === 1 ? { style: 'thin' } : undefined,
-              right: colNumber === 2 ? { style: 'thin' } : undefined
-            };
-          }
-        });
-      }
-    }
-  }
-  
-  // Fix alignment of Blood Type and Contact fields
-  if (bloodTypeRow && bloodTypeRow.getCell(2)) {
-    worksheet.getColumn(2).width = 25;
-  }
-  
   // Generate filename
-  const fileName = `THDC_Health_Report_${name ? name.replace(/\s+/g, '_') : 'Report'}_${new Date().toISOString().split('T')[0]}.xlsx`;
+  const fileName = `THDC_Health_Report_${
+    patientInfo.name ? patientInfo.name.replace(/\s+/g, '_') : 'Report'
+  }_${new Date().toISOString().split('T')[0]}.xlsx`;
   
   // Save the workbook
-  await workbook.xlsx.writeBuffer().then(buffer => {
-    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  await workbook.xlsx.writeBuffer().then((buffer) => {
+    const blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

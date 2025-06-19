@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   Typography,
-  Button
+  Box,
+  Button,
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ExtendedHealthTestItem, PredefinedTest } from '../types/healthReportTypes';
@@ -13,7 +14,11 @@ interface TestResultsSectionProps {
   onAddTest: () => void;
   onRemoveTest: (id: string) => void;
   onTestTypeChange: (id: string, index: number) => void;
-  onTestChange: (id: string, field: keyof Omit<ExtendedHealthTestItem, 'id'>, value: string) => void;
+  onTestChange: (
+    id: string,
+    field: keyof Omit<ExtendedHealthTestItem, 'id'>,
+    value: string
+  ) => void;
 }
 
 const TestResultsSection: React.FC<TestResultsSectionProps> = ({
@@ -22,23 +27,43 @@ const TestResultsSection: React.FC<TestResultsSectionProps> = ({
   onAddTest,
   onRemoveTest,
   onTestTypeChange,
-  onTestChange
+  onTestChange,
 }) => {
   return (
     <>
-      <Typography variant="h6" component="h2" sx={{ mt: 4, mb: 2 }}>
+      <Typography variant="h6" component="h2" sx={{ mt: 4, mb: 3 }}>
         Test Results
       </Typography>
-      {tests.map((testItem) => (
-        <TestItemRow
-          key={testItem.id}
-          testItem={testItem}
-          predefinedTests={predefinedTests}
-          onTestTypeChange={onTestTypeChange}
-          onTestChange={onTestChange}
-          onRemoveTest={onRemoveTest}
-        />
-      ))}
+      <Box>
+        {tests.map(testItem => (
+          <React.Fragment key={testItem.id}>
+            {testItem.isCategory ? (
+              <Typography
+                variant="subtitle1"
+                component="h3"
+                sx={{
+                  fontWeight: 'bold',
+                  mt: 3,
+                  mb: 1,
+                  borderBottom: 1,
+                  borderColor: 'divider',
+                  pb: 1,
+                }}
+              >
+                {testItem.testName}
+              </Typography>
+            ) : (
+              <TestItemRow
+                testItem={testItem}
+                predefinedTests={predefinedTests}
+                onTestTypeChange={onTestTypeChange}
+                onTestChange={onTestChange}
+                onRemoveTest={onRemoveTest}
+              />
+            )}
+          </React.Fragment>
+        ))}
+      </Box>
       <Button
         variant="outlined"
         startIcon={<AddCircleOutlineIcon />}

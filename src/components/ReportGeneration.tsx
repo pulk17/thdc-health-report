@@ -12,14 +12,12 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import TableViewIcon from '@mui/icons-material/TableView';
 import { ExtendedHealthTestItem } from '../types/healthReportTypes';
+import { PatientInfo } from '../types/patientInfoTypes';
 import { generateExcelReport, generatePDFReport } from '../utils/reportUtils';
 import { DoctorDetails } from '../pages/MainDataEntryPage';
 
 interface ReportGenerationProps {
-  name: string;
-  dateOfBirth: string;
-  gender: string;
-  bloodType: string;
+  patientInfo: PatientInfo;
   tests: ExtendedHealthTestItem[];
   showPrintView: boolean;
   setShowPrintView: (show: boolean) => void;
@@ -29,7 +27,7 @@ interface ReportGenerationProps {
 
 const ReportGeneration: React.FC<ReportGenerationProps> = (props) => {
   const { 
-    name, dateOfBirth, gender, bloodType, 
+    patientInfo,
     tests, printRef, setShowPrintView, doctorDetails
   } = props;
   
@@ -61,9 +59,9 @@ const ReportGeneration: React.FC<ReportGenerationProps> = (props) => {
   // Handle menu item selection
   const handleMenuItemClick = (optionId: string) => {
     if (optionId === 'pdf') {
-      generatePDFReport(printRef, setShowPrintView, name, doctorDetails);
+      generatePDFReport(printRef, setShowPrintView, patientInfo.name || '', doctorDetails);
     } else if (optionId === 'excel') {
-      generateExcelReport(name, dateOfBirth, gender, bloodType, tests, doctorDetails);
+      generateExcelReport(patientInfo, tests, doctorDetails);
     }
     setAnchorEl(null);
   };

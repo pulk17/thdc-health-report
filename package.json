@@ -2,7 +2,7 @@
   "name": "thdc-health-report-generator",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pulkit-thdc.github.io/thdc-health-report-generator",
+  "homepage": "https://pulk17.github.io/thdc-health-report",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
