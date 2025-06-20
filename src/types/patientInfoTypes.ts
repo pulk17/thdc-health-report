@@ -7,9 +7,6 @@ export interface PatientInfo {
   employeeNo?: string;
   relationshipWithEmployee?: string;
   workplace?: string;
-  investigation?: string;
-  presentingComplaint?: string;
-  treatment?: string;
   consultant?: string;
   labNo?: string;
   bloodType?: string;

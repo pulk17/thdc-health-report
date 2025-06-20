@@ -202,45 +202,6 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             variant="outlined"
           />
         </Box>
-        <Box sx={{ p: 1.5, width: '100%' }}>
-          <TextField
-            fullWidth
-            id="investigation"
-            name="investigation"
-            label="Investigation"
-            multiline
-            rows={2}
-            value={patientInfo.investigation || ''}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </Box>
-        <Box sx={{ p: 1.5, width: '100%' }}>
-          <TextField
-            fullWidth
-            id="presentingComplaint"
-            name="presentingComplaint"
-            label="Presenting Complaint"
-            multiline
-            rows={3}
-            value={patientInfo.presentingComplaint || ''}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </Box>
-        <Box sx={{ p: 1.5, width: '100%' }}>
-          <TextField
-            fullWidth
-            id="treatment"
-            name="treatment"
-            label="Treatment"
-            multiline
-            rows={3}
-            value={patientInfo.treatment || ''}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </Box>
       </Box>
     </Box>
   );

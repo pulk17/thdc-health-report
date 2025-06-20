@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Paper,
@@ -17,7 +17,6 @@ import {
   getValidation,
   validateInput,
 } from '../utils/testData';
-import PrintView from '../components/PrintView';
 import PersonalInfoForm from '../components/PersonalInfoForm';
 import TestResultsSection from '../components/TestResultsSection';
 import ReportGeneration from '../components/ReportGeneration';
@@ -98,14 +97,10 @@ const MainDataEntryPage: React.FC = () => {
     employeeNo: '',
     relationshipWithEmployee: '',
     workplace: '',
-    investigation: '',
-    presentingComplaint: '',
-    treatment: '',
     consultant: '',
     labNo: '',
   });
   const [tests, setTests] = useState<ExtendedHealthTestItem[]>([]);
-  const [showPrintView, setShowPrintView] = useState(false);
   
   // Doctor details state
   const [doctorDetails, setDoctorDetails] = useState<DoctorDetails>({
@@ -114,7 +109,6 @@ const MainDataEntryPage: React.FC = () => {
     contact: ''
   });
   
-  const printRef = useRef<HTMLDivElement>(null);
   const currentYear = new Date().getFullYear();
 
   // Update test recommendations when gender changes
@@ -282,9 +276,6 @@ const MainDataEntryPage: React.FC = () => {
           <ReportGeneration
             patientInfo={patientInfo}
             tests={tests}
-            showPrintView={showPrintView}
-            setShowPrintView={setShowPrintView}
-            printRef={printRef}
             doctorDetails={doctorDetails}
           />
           
@@ -294,19 +285,6 @@ const MainDataEntryPage: React.FC = () => {
           </Box>
         </Paper>
       </Container>
-      
-      {/* Hidden Print View for PDF */}
-      {showPrintView && (
-        <PrintView
-          ref={printRef}
-          name={patientInfo.name || ''}
-          dateOfBirth={patientInfo.dateOfBirth || ''}
-          gender={patientInfo.sex || ''}
-          bloodType={patientInfo.bloodType || ''}
-          tests={tests}
-          doctorDetails={doctorDetails}
-        />
-      )}
     </Box>
   );
 };
