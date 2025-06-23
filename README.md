@@ -1,46 +1,55 @@
-# Getting Started with Create React App
+# THDC Health Report Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive medical report generation system for THDC India Ltd. This application allows healthcare professionals to enter patient information, test results, and doctor details to generate standardized health reports in Excel format.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Personal Information Management:** Capture patients' personal and OPD details
+- **Dynamic Test Management:** Add, remove, and modify medical test results on the fly 
+- **Excel Report Generation:** Export comprehensive health reports in Excel format
+- **Intuitive Interface:** User-friendly design focused on healthcare workflows
+- **Automated Calculations:** Age calculation and data validation
 
-### `npm start`
+## Installation and Setup
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repository:
+   ```
+   git clone https://github.com/pulk17/thdc-health-report.git
+   ```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. Install dependencies:
+   ```
+   cd thdc-health-report
+   npm install
+   ```
 
-### `npm test`
+3. Run the application locally:
+   ```
+   npm start
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+1. Fill in the OPD details and patient's personal information
+2. Enter doctor information (if applicable)
+3. Add test results, including:
+   - Select test type from predefined categories
+   - Enter the measured values
+   - View recommended ranges automatically
+4. Export the report to Excel using the "Export as Excel" button
+5. Share or save the generated Excel file
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React with TypeScript
+- Material-UI for component design
+- ExcelJS for Excel report generation
+- React Router for navigation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
 
-### `npm run eject`
+© THDC India Ltd. All rights reserved.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project was created to streamline the health reporting process at THDC facilities.
