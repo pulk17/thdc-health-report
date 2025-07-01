@@ -111,6 +111,11 @@ const MainDataEntryPage: React.FC = () => {
   
   const currentYear = new Date().getFullYear();
 
+  // Initialize tests when component mounts
+  useEffect(() => {
+    setTests(createInitialTests());
+  }, []);
+
   // Update test recommendations when gender changes
   useEffect(() => {
     setTests(prevTests => 
