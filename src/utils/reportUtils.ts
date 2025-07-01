@@ -239,7 +239,7 @@ export const generateExcelReport = async (
   });
   
   // Generate filename
-  const fileName = `THDC_Health_Report_${
+  const fileName = `OPD${patientInfo.opdRegNo || 'Unknown'}_${
     patientInfo.name ? patientInfo.name.replace(/\s+/g, '_') : 'Report'
   }_${new Date().toISOString().split('T')[0]}.xlsx`;
   

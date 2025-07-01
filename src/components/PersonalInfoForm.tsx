@@ -48,17 +48,20 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
           <TextField
             fullWidth
+            required
             id="opdRegNo"
             name="opdRegNo"
             label="O.P.D. Reg No."
             value={patientInfo.opdRegNo || ''}
             onChange={handleChange}
             variant="outlined"
+            helperText="This will be used in the report filename"
           />
         </Box>
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
           <TextField
             fullWidth
+            required
             id="opdDate"
             name="opdDate"
             label="OPD Date"
@@ -72,6 +75,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
           <TextField
             fullWidth
+            required
             id="consultant"
             name="consultant"
             label="Consultant"
@@ -83,6 +87,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
           <TextField
             fullWidth
+            required
             id="labNo"
             name="labNo"
             label="Lab No."
@@ -131,7 +136,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
 
         {/* Gender */}
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
-          <FormControl component="fieldset" sx={{ mt: 1 }}>
+          <FormControl component="fieldset" sx={{ mt: 1 }} required>
             <FormLabel component="legend">Gender</FormLabel>
             <RadioGroup
               row
@@ -148,7 +153,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
 
         {/* Blood Type */}
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
-          <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant="outlined" required>
             <InputLabel id="blood-type-label">Blood Type</InputLabel>
             <Select
               labelId="blood-type-label"
@@ -172,6 +177,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
           <TextField
             fullWidth
+            required
             id="employeeNo"
             name="employeeNo"
             label="Employee No."
@@ -183,6 +189,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         <Box sx={{ p: 1.5, width: { xs: '100%', sm: '50%' } }}>
           <TextField
             fullWidth
+            required
             id="relationshipWithEmployee"
             name="relationshipWithEmployee"
             label="Relationship with Employee"
@@ -194,6 +201,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         <Box sx={{ p: 1.5, width: '100%' }}>
           <TextField
             fullWidth
+            required
             id="workplace"
             name="workplace"
             label="Workplace"
