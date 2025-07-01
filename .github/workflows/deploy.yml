@@ -27,10 +27,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install ExcelJS explicitly
+        run: npm install exceljs --save
+
+      - name: Remove internship report from build
+        run: |
+          if [ -f "THDC_Health_Report_Generator_Internship_Report.txt" ]; then
+            mv THDC_Health_Report_Generator_Internship_Report.txt THDC_Health_Report_Generator_Internship_Report.txt.bak
+          fi
+
       - name: Build
         run: npm run build
         env:
           CI: false
+
+      - name: Restore internship report
+        run: |
+          if [ -f "THDC_Health_Report_Generator_Internship_Report.txt.bak" ]; then
+            mv THDC_Health_Report_Generator_Internship_Report.txt.bak THDC_Health_Report_Generator_Internship_Report.txt
+          fi
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
