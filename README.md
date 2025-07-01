@@ -2,6 +2,11 @@
 
 A comprehensive medical report generation system for THDC India Ltd. This application allows healthcare professionals to enter patient information, test results, and doctor details to generate standardized health reports in Excel format.
 
+## Deployed Application
+
+The application is deployed and accessible at:
+[https://pulk17.github.io/thdc-health-report/](https://pulk17.github.io/thdc-health-report/)
+
 ## Features
 
 - **Personal Information Management:** Capture patients' personal and OPD details

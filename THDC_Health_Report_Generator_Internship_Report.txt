@@ -309,4 +309,52 @@ We would like to express our gratitude to:
 - [Developer 1 Name] - [Email]
 - [Developer 2 Name] - [Email]
 
+-------------------------------------------------
+
+## Image Generation Prompts for ChatGPT
+
+Below are detailed prompts to generate images for each placeholder in the report. These can be used with ChatGPT image generation or DALL-E to create professional visualizations for the report.
+
+### 1. Application Home Screen
+**Prompt:** "Create a professional screenshot of a medical health report web application interface. The interface should show a form with sections for OPD details (including registration number and date fields), personal information (with name, date of birth, gender fields), and test results sections. Use a clean, medical-themed color scheme with blues and whites. Include a THDC logo in the header and a sidebar for navigation. The interface should look modern, user-friendly, and professional."
+
+### 2. System Architecture Diagram
+**Prompt:** "Create a professional system architecture diagram for a React single-page application. Show the frontend components (React, TypeScript, Material-UI, React Router) at the top, the core business logic in the middle (state management, form validation, report generation), and the output (Excel reports) at the bottom. Use a clean, modern design with connecting arrows showing the flow of data. Include icons for React, TypeScript, and GitHub Pages. Use a color scheme of blues and grays. Label each component clearly."
+
+### 3. Patient Information Form
+**Prompt:** "Create an image of a patient information form in a medical web application. The form should have fields for OPD Reg No., OPD Date, Consultant, and Lab No. in the top section, and personal information fields (Full Name, Date of Birth, Gender, Blood Type, Employee No., Relationship with Employee, Workplace) in the bottom section. All fields should be marked as required with red asterisks. Use Material Design style with text fields, dropdown menus, and radio buttons. Show some fields already filled with sample data."
+
+### 4. Doctor Information Form
+**Prompt:** "Create an image of a doctor information form section in a healthcare application. The form should include fields for Doctor Name, Specialization, and Contact Information, styled with Material Design components. The section should have a heading 'Doctor Information' and the fields should be arranged horizontally in a responsive layout. Show the form with some sample data filled in. Use a professional medical color scheme."
+
+### 5. Test Management Interface
+**Prompt:** "Create an image of a medical test results interface in a healthcare application. The interface should show a list of categorized tests including Complete Blood Count (CBC), Kidney Function Tests, and Liver Function Tests. Each test should display the test name, a field for actual value, the recommended reference range, and units of measurement. Include an 'Add New Test' button at the bottom. Some tests should be shown with sample values entered. Use Material Design styling with a clean, medical aesthetic."
+
+### 6. Generated Excel Report
+**Prompt:** "Create an image of an Excel spreadsheet showing a formatted health report. The spreadsheet should have sections for OPD Details, Personal Information, Doctor Information, and Test Results. The Test Results section should have columns for Test Name, Actual Value, and Recommended Value/Range. Show sample data filled in for a patient. Include proper formatting with section headers in gray, bold column headers, and cell borders. The filename visible at the top should follow the format 'OPD12345_John_Doe_2023-10-15.xlsx'."
+
+### 7. Development Timeline
+**Prompt:** "Create a professional project timeline/Gantt chart showing the development phases of a healthcare application. Include the following phases in sequence: Requirements Analysis (2 weeks), Design (3 weeks), Implementation (4 weeks), Testing (2 weeks), and Deployment (1 week). Use a horizontal bar chart style with dates along the bottom axis. Use different colors for each phase and include milestone markers at the completion of each phase. Add icons representing each phase of development. The overall design should be clean and professional."
+
+### 8. Technology Stack Diagram
+**Prompt:** "Create a technology stack diagram for a modern web application. Structure it as a layered pyramid with the following technologies: At the bottom layer show React (v19.1.0) and TypeScript (v4.9.5), the middle layer should display Material-UI (v7.1.1) and React Router (v7.6.1), and the top layer should include ExcelJS and UUID. On the side, show GitHub Actions for CI/CD. Use distinctive icons for each technology, label each clearly with version numbers where applicable, and use a professional color scheme with connecting elements to show relationships between the technologies."
+
+### 9. Component Structure Diagram
+**Prompt:** "Create a component structure diagram for a React application. Show the hierarchy of components with MainDataEntryPage at the top, branching down to PersonalInfoForm, TestResultsSection, and ReportGeneration. Under TestResultsSection, show TestItemRow as a child component. Use boxes for components connected by lines showing the relationship. Each box should include the component name and a brief description of its function. Use different colors for different component types (container components vs. presentational components). Include indicators for data flow between components."
+
+### 10. Before/After UI Fix Comparison
+**Prompt:** "Create a side-by-side comparison of a user interface before and after fixing layout issues. The 'Before' image on the left should show a form with misaligned elements, overflowing content, and inconsistent spacing caused by problematic Grid components. The 'After' image on the right should show the same form with proper alignment, consistent spacing, and responsive layout using Box components with flexbox. Label each side clearly as 'Before' and 'After'. Use arrows or highlights to point out the specific improvements made in the fixed version."
+
+### 11. Testing Process
+**Prompt:** "Create a diagram illustrating the testing process for a healthcare application. Show a circular workflow with the following stages: Development, Manual Testing, Validation Testing, Cross-Browser Testing, User Feedback, and Refinement (connecting back to Development). Include icons representing each stage. In the center, show a quality assurance shield or badge. Add small illustrations of a form being tested, a browser compatibility check, and user feedback collection. Use a professional color scheme with blues and greens representing the successful testing path."
+
+### 12. Future Enhancement Roadmap
+**Prompt:** "Create a roadmap diagram showing planned future enhancements for a healthcare application. Design it as a road or path with the following milestones in sequence: 1. Data Persistence (database icon), 2. Report Templates (document templates icon), 3. Patient History (timeline icon), 4. Multi-language Support (language/translation icon), 5. Advanced Analytics (charts/graphs icon), and 6. Mobile Optimization (responsive design icon). Each milestone should include a brief label and icon. Use a visually appealing design with a sense of progression and future direction. Include the current state at the beginning of the road."
+
+### 13. Team Photo or Work Session
+**Prompt:** "Create an illustration of two developers collaborating on a healthcare application project. Show them working together at a desk with computer screens displaying code and a user interface. One developer should be focusing on the UI components while the other is working on data handling and report generation. Include visual elements like a whiteboard with component diagrams, sticky notes with tasks, and coffee cups. The environment should look like a modern tech workspace. Make the scene professional but with a collaborative atmosphere. Do not show real human faces - use abstract or stylized representations of people."
+
+### 14. Final Application Screenshot
+**Prompt:** "Create a comprehensive screenshot of the final THDC Health Report Generator application. Show the main data entry page with all sections visible: OPD Details (top), Personal Information (middle), Doctor Information, and Test Results (bottom) with the Export as Excel button. All form fields should appear filled with sample data. The interface should demonstrate the clean, professional design with proper spacing, alignment, and consistent styling throughout. Include the THDC logo in the header and a proper footer. The layout should demonstrate responsive design principles and professional healthcare application aesthetics."
+
 ------------------------------------------------- 
