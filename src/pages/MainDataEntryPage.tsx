@@ -4,8 +4,7 @@ import {
   Paper,
   Typography,
   Box,
-  TextField,
-  Grid
+  TextField
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { ExtendedHealthTestItem } from '../types/healthReportTypes';
@@ -14,7 +13,6 @@ import {
   predefinedTests,
   createInitialTests,
   getRecommendedValue,
-  getValidation,
   validateInput,
 } from '../utils/testData';
 import PersonalInfoForm from '../components/PersonalInfoForm';
